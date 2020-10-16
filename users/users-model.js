@@ -5,7 +5,6 @@ module.exports = {
   find,
   findBy,
   findById,
-  isValid,
 };
 
 function find() {
@@ -30,10 +29,4 @@ async function add(user) {
 
 function findById(id) {
   return db("users").where({ id }).first();
-}
-
-function isValid(user) {
-  return Boolean(
-    user.username && user.password && typeof user.password === "string"
-  );
 }
