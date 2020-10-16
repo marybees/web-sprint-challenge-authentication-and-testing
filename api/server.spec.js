@@ -1,6 +1,7 @@
 const supertest = require("supertest");
 
 const server = require("./server");
+const users = require("../users/users-router");
 
 describe("server", () => {
   describe("GET /", () => {
@@ -31,6 +32,34 @@ describe("server", () => {
     it("should return JSON", () => {
       return supertest(server)
         .get("/")
+        .then((res) => {
+          expect(res.type).toMatch(/json/i);
+        });
+    });
+  });
+});
+
+describe("users", () => {
+  describe("GET /", () => {
+    it("should have a body", () => {
+      return supertest(users)
+        .get("/users")
+        .then((res) => {
+          expect(res.body).toEqual({ access: "denied!" });
+        });
+    });
+
+    it("should return api & up", () => {
+      return supertest(users)
+        .get("/users")
+        .then((res) => {
+          expect(res.body.access).toBe("denied!");
+        });
+    });
+
+    it("should return JSON", () => {
+      return supertest(users)
+        .get("/users")
         .then((res) => {
           expect(res.type).toMatch(/json/i);
         });
