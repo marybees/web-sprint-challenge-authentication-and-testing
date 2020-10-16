@@ -3,12 +3,19 @@ const db = require("../database/db-config");
 module.exports = {
   add,
   find,
+  findBy,
   findById,
   isValid,
 };
 
 function find() {
   return db("users").select("id", "username").orderBy("id");
+}
+
+function findBy(filter) {
+  return db("users as u")
+    .select("u.id", "u.username", "u.password")
+    .orderBy("u.id");
 }
 
 async function add(user) {

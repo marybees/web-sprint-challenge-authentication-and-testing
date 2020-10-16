@@ -37,13 +37,12 @@ router.post("/login", (req, res) => {
   if (isValid(req.body)) {
     Users.findBy({ "u.username": username })
       .then(([user]) => {
-        // compare the password the hash stored in the database
         if (user && bcryptjs.compareSync(password, user.password)) {
           const token = getJwt(user);
 
           res
             .status(200)
-            .json({ message: "Welcome to the best API ever!", token });
+            .json({ message: "Welcome to the official dad jokes api!", token });
         } else {
           res.status(401).json({ message: "Invalid credentials" });
         }
